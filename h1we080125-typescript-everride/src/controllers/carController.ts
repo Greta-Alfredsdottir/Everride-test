@@ -4,7 +4,7 @@ import { prisma } from "../prismaClient.js"
 
 export const getRecords = async (req, res) => {
   try {
-    const data = await prisma.car.findMany()
+    const data = await prisma.cars.findMany()
     res.json(data)
   } catch (error) {
     console.error(error)
