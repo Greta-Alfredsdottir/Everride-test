@@ -1,17 +1,21 @@
 
 import {Router} from 'express';
-import {getRecords} from '../controllers/carController.js'
+import {createRecord, deleteRecord, getRecord, getRecords, updateRecord} from '../controllers/carController.js';
 
-const router = Router()
+const router = Router();
 
+// Subroutes til /api/cars
+router.get('/', getRecords);
 
-router.get('/', getRecords)
-router.get('/:id', (req, res) =>{
-    const id = Number(req.params.id)
-    res.send(`Bil detaljer: ${id}`)
-});
+router.get('/:id', getRecord);
 
-export { router as carRouter }
+router.post('/', createRecord);
+
+router.put('/:id', updateRecord);
+
+router.delete('/:id', deleteRecord)
+
+export { router as carRoutes };
 
 
 

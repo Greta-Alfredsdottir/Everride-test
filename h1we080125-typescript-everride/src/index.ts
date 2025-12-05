@@ -3,6 +3,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { userRoutes } from './routes/userRoutes.js';
+import { carRoutes } from './routes/carRoutes.js';
 
 // Indlæs miljøvariabler fra .env (uden at vise logs)
 dotenv.config({ quiet: true });
@@ -20,7 +21,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Brug vores user-routes under /api/users
+
+app.use('/api/cars', carRoutes); 
 app.use('/api/users', userRoutes);
+
+
+// 404 route
+app.use((req, res) => {
+  res.status(404).send('Kunne ikke finde siden du søgte efter')
+})
 
 // Start serveren
 app.listen(port, () => {
