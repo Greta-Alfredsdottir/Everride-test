@@ -18,13 +18,16 @@ export const getRecord = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
 
   if(!id) {
-    return res.status(400).json({ error; 'Id is missing'})
+    return res.status(400).json({ error: 'Id is missing'})
   }
   try {
     const data = await prisma.user.findUnique({
       where: {id},
 
     })
+  }
+  catch( error){
+    console.error(error)
   }
 }
 
@@ -45,7 +48,10 @@ export const createRecord = async (req: Request, res: Response) => {
         role: role,
         isActive: Boolean(isActive),
       }
-    }),
+    })
+  }
+   catch( error){
+    console.error(error)
   }
 }
 export const updateRecord = async (req: Request, res: Response) => {
@@ -57,7 +63,7 @@ export const updateRecord = async (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Id is missing'})
   };
 
-  const {firstname, lastname, email, password, role, isActive} = register.body;
+  const {firstname, lastname, email, password, role, isActive} = req.body;
 
   if(!firstname || !lastname || !email || !password){
     return res.status(400).json({ error: 'All data is required'})
@@ -69,12 +75,14 @@ export const updateRecord = async (req: Request, res: Response) => {
         firstname,
         lastname,
         email,
-        password: hashedPassword,
+        password,
         role: role,
         isActive: Boolean(isActive),
       }
 
     })
+  } catch( error){
+    console.error(error)
   }
 }
 

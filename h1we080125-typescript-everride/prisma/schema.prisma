@@ -27,6 +27,17 @@ model User {
   isActive Boolean @map("isActive")
   @@map("user")
 }
+model Category{
+  id Int @id @default(autoincrement())
+  name String
+  }
+model Brand{
+  id Int @id @default(autoincrement())
+  name String
+  logoUrl String
+  car Cars[]
+  @@map("brand")
+}
 model Cars{
   id Int @id @default(autoincrement())
   category String 
@@ -39,15 +50,5 @@ model Cars{
 
   @@map("car")
 }
-model Category{
-  id Int @id @default(autoincrement())
-  name String
-  }
-model Brand{
-  id Int @id @default(autoincrement())
-  name String
-  logoUrl String
-  car Cars[]
-  @@map("brand")
-}
+
 

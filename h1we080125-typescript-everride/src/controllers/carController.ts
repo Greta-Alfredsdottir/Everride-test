@@ -30,16 +30,17 @@ export const getRecords = async (req: Request, res: Response) => {
 
 export const getRecord = async (req: Request, res: Response) => {
   const id = Number(req.params.id)
+
   if (!id) {
     return res.status(400).json({ error: 'Id has no value'});
   }
   try {
     const data = await prisma.cars.findUnique({
-      where: {
-        id
-      }
+      where: {id}
     });
+
     return res.status(200).json(data);
+    
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Failed to fetch cars'});
@@ -65,7 +66,7 @@ export const createRecord = async (req: Request, res: Response) => {
         fueltype
       }
     })
-    return  res.status(201).json(data);
+    return res.status(201).json(data);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: 'Noget gik galt i serveren'})
@@ -76,12 +77,12 @@ export const createRecord = async (req: Request, res: Response) => {
 
 export const updateRecord = async (req: Request, res: Response) => {
   const id = Number(req.params.id)
-  const {category, brand, model, year, price, fueltype } = req.body
+  const {category, brandId, model, year, price, fueltype } = req.body
   if(!id) {
     return res.status(400).json({error:'Id skal have en gyldig værdi'})
   }
    if  
-    (!category || !brand || !model || !year || !price || !fueltype) { 
+    (!category || !brandId || !model || !year || !price || !fueltype) { 
       return res.status(400).json({error:'Alle felter skal udfyldes'})
     }
     try {
@@ -89,7 +90,7 @@ export const updateRecord = async (req: Request, res: Response) => {
         where: {id},
         data: {
           category,
-          brand,
+          brandId,
           model,
           year: Number(year),
           price,
