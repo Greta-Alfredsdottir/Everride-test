@@ -85,4 +85,18 @@ export const updateRecord = async (req: Request, res: Response) => {
     console.error(error)
   }
 }
+export const deleteRecord = async (req: Request, res: Response) => {
+  const id = Number(req.params.id)
+  console.log(id);
+  try {
+    await prisma.brand.delete({
+      where: { id },
+    });
+    res.status(200).json({ message: `user nr. ${id} er slettet`});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Kunne ikke slette usere'});
+  }
+  
+}
 

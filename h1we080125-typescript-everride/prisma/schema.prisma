@@ -38,6 +38,11 @@ model Brand{
   car Cars[]
   @@map("brand")
 }
+model fueltype{
+  id Int @id @default(autoincrement())
+  name String
+  }
+
 model Cars{
   id Int @id @default(autoincrement())
   category String 

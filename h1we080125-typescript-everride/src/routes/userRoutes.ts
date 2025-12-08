@@ -1,9 +1,19 @@
 
 // Fil: ./src/routes/userRoutes.ts
 import { Router } from 'express';
-import { getRecords } from '../controllers/userController.js';
+import { createRecord, deleteRecord, getRecord, getRecords, updateRecord } from '../controllers/userController.js';
 
 const router = Router();
+// Subroutes til /api/cars
 router.get('/', getRecords);
+
+router.get('/:id', getRecord);
+
+router.post('/', createRecord);
+
+router.put('/:id', updateRecord);
+
+router.delete('/:id', deleteRecord)
+
 
 export const userRoutes = router;
